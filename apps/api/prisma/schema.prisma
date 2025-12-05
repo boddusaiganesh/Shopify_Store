@@ -1,0 +1,116 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenants Tenant[]
+}
+
+model Tenant {
+  id          String   @id @default(uuid())
+  storeName   String
+  storeUrl    String   @unique
+  apiKey      String?
+  apiSecret   String?
+  accessToken String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  products  Product[]
+  orders    Order[]
+  customers Customer[]
+  events    CustomEvent[]
+  syncLogs  SyncLog[]
+}
+
+model Product {
+  id          String   @id @default(uuid())
+  shopifyId   String
+  title       String
+  bodyHtml    String?
+  vendor      String?
+  productType String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([shopifyId, tenantId])
+}
+
+model Customer {
+  id          String   @id @default(uuid())
+  shopifyId   String
+  firstName   String?
+  lastName    String?
+  email       String?
+  phone       String?
+  totalSpent  Decimal?
+  ordersCount Int?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  orders      Order[]
+
+  @@unique([shopifyId, tenantId])
+}
+
+model Order {
+  id          String   @id @default(uuid())
+  shopifyId   String
+  orderNumber Int?
+  totalPrice  Decimal?
+  currency    String?
+  createdAt   DateTime @default(now())
+  processedAt DateTime?
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  customerId  String?
+  customer    Customer? @relation(fields: [customerId], references: [id], onDelete: SetNull)
+
+  @@unique([shopifyId, tenantId])
+}
+
+model CustomEvent {
+  id          String   @id @default(uuid())
+  eventType   String   // 'cart_abandoned', 'checkout_started', 'checkout_completed', etc.
+  eventData   Json?
+  customerId  String?
+  customerEmail String?
+  shopifyId   String?
+  createdAt   DateTime @default(now())
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, eventType])
+  @@index([tenantId, createdAt])
+}
+
+model SyncLog {
+  id          String   @id @default(uuid())
+  syncType    String   // 'products', 'customers', 'orders', 'events'
+  status      String   // 'success', 'failed', 'in_progress'
+  itemsCount  Int?
+  errorMessage String?
+  startedAt   DateTime @default(now())
+  completedAt DateTime?
+  tenantId    String
+  tenant      Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@index([tenantId, syncType])
+}
