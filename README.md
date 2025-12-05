@@ -3,8 +3,9 @@
 A production-ready multi-tenant SaaS platform for Shopify merchants to ingest, analyze, and visualize their store data
 with real-time insights.
 
-🔗 **Live Demo**: [Coming Soon]  
-📹 **Video Demo**: [Coming Soon]
+🔗 **GitHub Repository**: https://github.com/boddusaiganesh/Shopify_Store  
+📹 **Video Demo**: [Coming Soon]  
+🚀 **Live Demo**: [Coming Soon]
 
 ## ✨ Features
 
