@@ -5,7 +5,8 @@ with real-time insights.
 
 🔗 **GitHub Repository**: https://github.com/boddusaiganesh/Shopify_Store  
 📹 **Video Demo**: [Coming Soon]  
-🚀 **Live Demo**: [Coming Soon]
+🚀 **Live Demo**: https://shopify-insights.netlify.app  
+🔌 **Backend API**: https://shopify-insights-api-hmqx.onrender.com
 
 ## ✨ Features
 
@@ -425,5 +426,6 @@ MIT License - See LICENSE file for details
 ---
 
 **Built with ❤️ for Xeno Assignment**
-#   T r i g g e r   V e r c e l   d e p l o y m e n t  
+#   T r i g g e r   V e r c e l   d e p l o y m e n t 
+ 
  
