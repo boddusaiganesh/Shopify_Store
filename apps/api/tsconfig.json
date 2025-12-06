@@ -3,13 +3,28 @@
         "target": "es2016",
         "module": "commonjs",
         "outDir": "./dist",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "lib": [
-            "es2017",
-            "esnext"
-        ]
-    }
+        "rootDir": "./src",
+      "strict": false,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "forceConsistentCasingInFileNames": true,
+      "resolveJsonModule": true,
+      "moduleResolution": "node",
+      "types": [
+        "node"
+      ],
+      "lib": [
+        "es2017",
+        "esnext"
+      ]
+    },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "src/**/*.test.ts",
+    "src/**/__tests__/**"
+  ]
 }
