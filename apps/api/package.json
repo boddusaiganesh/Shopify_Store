@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "dist/index.js",
     "scripts": {
-        "build": "tsc",
-        "start": "node dist/index.js",
+        "build": "echo 'Build not needed - using ts-node'",
+      "start": "ts-node src/index.ts",
         "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
       "test": "jest --coverage",
       "test:watch": "jest --watch"
@@ -17,7 +17,9 @@
       "bcryptjs": "^2.4.3",
       "jsonwebtoken": "^9.0.2",
       "axios": "^1.6.2",
-      "node-cron": "^3.0.3"
+      "node-cron": "^3.0.3",
+      "ts-node": "^10.9.2",
+      "typescript": "^5.3.3"
     },
     "devDependencies": {
         "@types/cors": "^2.8.17",
